@@ -9,7 +9,7 @@ We modified data_processing.py, yolov3_to_onnx.py, and onnx_to_tensorrt.py files
 - Convert the boundary boxes from TensorRT inference output into format able to be processed by main.py in /mAP.
 
 Additional modifications:
-- We compiled ground truth labels for COCO and VOC data sets from source.
+- We wrote label.py script under cocoapi/PythonAPI to compile ground truth labels for COCO and VOC data sets from source.
 
 
 ## Setup to use this repo:
