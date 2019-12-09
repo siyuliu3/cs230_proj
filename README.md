@@ -1,4 +1,21 @@
-# Object Detection With The ONNX TensorRT Backend In Python
+# CS230 Final Project
+
+This repository was built from sample code provided by NVIDIA in the tensorrt package (/usr/src/tensorrt/samples/python/yolov3_onnx). This base code supports compiling YoloV3-608 from darkent weights to run a sample inference on a dog picture using COCO classes. Additionally, it includes mAP calculation SW from [here](https://github.com/YunYang1994/tensorflow-yolov3/tree/master/mAP) and the [coco dataset api](https://github.com/cocodataset/cocoapi)
+
+The data_processing.py, yolov3_to_onnx.py, and onnx_to_tensorrt.py files were modified to:
+- Build YoloV3-416 and YoloV3-320 as well
+- Build YoloV3 models trained per VOC dataset requirements (20 classes)
+- Build TensorRT models with Loop Fusion or Loop Fusion + f16 Quantization
+- Convert the boundary boxes from TensorRT inference output into format able to be processed by main.py in /mAP.
+
+Additional Work
+- Compile ground truth labels for COCO and VOC data sets from source.
+
+To use this repo:
+1) Download the COCO val dataset use darkent [download scripts](https://github.com/pjreddie/darknet/blob/master/scripts/get_coco_dataset.sh) as reference
+2) Download the VOC dataset
+
+## Object Detection With The ONNX TensorRT Backend In Python
 
 **Table Of Contents**
 - [Description](#description)
