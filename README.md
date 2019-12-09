@@ -1,20 +1,29 @@
 # CS230 Final Project
 
-This repository was built from sample code provided by NVIDIA in the tensorrt package (/usr/src/tensorrt/samples/python/yolov3_onnx). This base code supports compiling YoloV3-608 from darkent weights to run a sample inference on a dog picture using COCO classes. Additionally, it includes mAP calculation SW from [here](https://github.com/YunYang1994/tensorflow-yolov3/tree/master/mAP) and the [coco dataset api](https://github.com/cocodataset/cocoapi)
+This repository was built from sample code provided by NVIDIA in the tensorrt package (/usr/src/tensorrt/samples/python/yolov3_onnx). This base code supports compiling YoloV3-608 from darkent weights to run a sample inference on a dog picture using COCO classes. Additionally, it includes mAP calculation scripts from [here](https://github.com/YunYang1994/tensorflow-yolov3/tree/master/mAP) and the [coco dataset api](https://github.com/cocodataset/cocoapi)
 
-The data_processing.py, yolov3_to_onnx.py, and onnx_to_tensorrt.py files were modified to:
+We modified data_processing.py, yolov3_to_onnx.py, and onnx_to_tensorrt.py files to:
 - Build YoloV3-416 and YoloV3-320 as well
 - Build YoloV3 models trained per VOC dataset requirements (20 classes)
 - Build TensorRT models with Loop Fusion or Loop Fusion + f16 Quantization
 - Convert the boundary boxes from TensorRT inference output into format able to be processed by main.py in /mAP.
 
-Additional Work
-- Compile ground truth labels for COCO and VOC data sets from source.
+Additional modifications:
+- We compiled ground truth labels for COCO and VOC data sets from source.
 
-To use this repo:
-1) Download the COCO val dataset use darkent [download scripts](https://github.com/pjreddie/darknet/blob/master/scripts/get_coco_dataset.sh) as reference
-2) Download the VOC dataset
 
+## To use this repo:
+1) Download the COCO val dataset use darkent [download scripts](https://github.com/pjreddie/darknet/blob/master/scripts/get_coco_dataset.sh) as reference.
+2) Download the VOC test dataset (wget http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtest_06-Nov-2007.tar).
+3) Set up the paths for these datasets in onnx_to_tensorrt.py and /mAP/main.py
+4) Add or download the weights for Yolov3 into /config
+
+## Environments to run:
+- HW system with an NVIDIA GPU or SOC
+- SW environment with tensorRT, CUDA, Cudnn, pycuda, etc. Recommend setting up a [TensorRT docker from NVIDIA](https://docs.nvidia.com/deeplearning/sdk/tensorrt-container-release-notes/running.html)
+
+
+## Below follows the README from NVIDIA:
 ## Object Detection With The ONNX TensorRT Backend In Python
 
 **Table Of Contents**
