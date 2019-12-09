@@ -12,15 +12,21 @@ Additional modifications:
 - We compiled ground truth labels for COCO and VOC data sets from source.
 
 
-## To use this repo:
-1) Download the COCO val dataset use darkent [download scripts](https://github.com/pjreddie/darknet/blob/master/scripts/get_coco_dataset.sh) as reference.
-2) Download the VOC test dataset (wget http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtest_06-Nov-2007.tar).
-3) Set up the paths for these datasets in onnx_to_tensorrt.py and /mAP/main.py
-4) Add or download the weights for Yolov3 into /config
+## Setup to use this repo:
+- Download the COCO val dataset use darkent [download scripts](https://github.com/pjreddie/darknet/blob/master/scripts/get_coco_dataset.sh) as reference.
+- Download the VOC test dataset (wget http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtest_06-Nov-2007.tar).
+- Set up the paths for these datasets in onnx_to_tensorrt.py and /mAP/main.py
+- Add or download the weights for Yolov3 into /config
 
 ## Environments to run:
 - HW system with an NVIDIA GPU or SOC
 - SW environment with tensorRT, CUDA, Cudnn, pycuda, etc. Recommend setting up a [TensorRT docker from NVIDIA](https://docs.nvidia.com/deeplearning/sdk/tensorrt-container-release-notes/running.html)
+
+## Steps to run Repo:
+1) Change the variables/flags BUILD, SIZE, COCO, and PRINT_RESULTS at the start of data_processing.py, yolov3_to_onnx.py, and onnx_to_tensorrt.py for the test you'd like to run.
+2) Run yolov3_to_onnx.py to create the onnx model. This will be stored into ./engine/onnx/yolov3-dataset-size.onnx
+3) Run onnx_to_tensorrt.py to create the trt model (stored in ./engine/trt/yolov3-dataset-size-optimization.trt), and then begin processing the dataset per the COCO flag. Predictions per image will be saved to the /mAP/predicted directory in the format {category, score, xmin, ymin, xmax, ymax}. If PRINT_RESULTS is true, the output will be verbose and will save images with the boundary boxes overlaid into the /results directory.
+4) Run main.py in the /mAP directory to run the mAP calculation between your predictions and the ground truth.
 
 
 ## Below follows the README from NVIDIA:
